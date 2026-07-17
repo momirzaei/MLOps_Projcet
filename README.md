@@ -27,3 +27,24 @@ docker compose up -d
 
 Copy `.env.example` to `.env` and replace placeholder passwords and the Groq API key
 before running the full process.
+
+## Step 2: Bronze Ingestion
+
+Step 2 adds a manual Bronze ingestion job for the UCI Online Retail dataset:
+
+- Downloads the raw Excel source into `data/bronze/_raw`.
+- Computes SHA-256 and batch metadata.
+- Records each run in `audit.ingestion_batches`.
+- Writes raw string columns plus ingestion metadata to partitioned Parquet under
+  `data/bronze/online_retail`.
+
+Install the updated dependencies before running the job:
+
+```powershell
+pip install -r requirements.txt
+```
+
+On Windows, Spark needs a JVM and Hadoop helper binaries. Install JDK 17, then
+the project downloads `winutils.exe` and `hadoop.dll` into `tools/hadoop/bin`
+on the first Bronze run and sets `HADOOP_HOME` inside the Python process. You do
+not need `C:\hadoop` or manual Hadoop environment variables.

@@ -4,3 +4,10 @@ pydantic==2.9.2
 pydantic-settings==2.6.1
 SQLAlchemy==2.0.36
 psycopg2-binary==2.9.10
+
+# --- step 2: bronze ingestion ---
+pyspark==3.5.3
+requests==2.32.3
+pandas==2.2.3
+pyarrow==17.0.0
+openpyxl==3.1.5

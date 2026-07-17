@@ -9,8 +9,15 @@ venv/
 
 # data lake layers (parquet)
 data/*
-!data/*/
 !data/**/.gitkeep
+
+# project-local Hadoop shim (auto-downloaded, not source code)
+tools/hadoop/
+
+# spark local metadata
+spark-warehouse/
+metastore_db/
+derby.log
 
 # airflow / mlflow local artifacts (used in later steps)
 airflow/logs/
