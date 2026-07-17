@@ -1,0 +1,27 @@
+# secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# data lake layers (parquet)
+data/*
+!data/*/
+!data/**/.gitkeep
+
+# airflow / mlflow local artifacts (used in later steps)
+airflow/logs/
+mlruns/
+mlartifacts/
+
+# dbt
+dbt_packages/
+target/
+logs/
+
+# ide
+.vscode/
+.idea/

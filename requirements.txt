@@ -1,0 +1,6 @@
+# --- step 1: foundation ---
+python-dotenv==1.0.1
+pydantic==2.9.2
+pydantic-settings==2.6.1
+SQLAlchemy==2.0.36
+psycopg2-binary==2.9.10
