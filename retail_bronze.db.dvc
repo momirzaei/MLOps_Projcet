@@ -1,0 +1,5 @@
+outs:
+- md5: ce759710e06d84ec34757ac5ac3caad4
+  size: 103387136
+  hash: md5
+  path: retail_bronze.db

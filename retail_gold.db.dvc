@@ -1,0 +1,5 @@
+outs:
+- md5: 5fd1d6fcd14559e68bc0bb598e0f0592
+  size: 128253952
+  hash: md5
+  path: retail_gold.db

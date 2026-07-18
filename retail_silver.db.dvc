@@ -1,0 +1,5 @@
+outs:
+- md5: 8ab4804d86273d6d5e18b674fb0b0ebb
+  size: 127537152
+  hash: md5
+  path: retail_silver.db
