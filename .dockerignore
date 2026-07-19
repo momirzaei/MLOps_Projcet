@@ -1,0 +1,30 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+
+# Version Control
+.git/
+.dvc/
+.dvcignore
+.gitignore
+
+# MLflow Tracking History
+mlruns/
+mlflow_tracking.db
+
+# Raw Data (We only need the finalized Gold DB)
+online_retail_II.csv
+golden_set.csv
+retail_bronze.db
+retail_silver.db
+
+# Environment variables & IDE settings
+.env
+.vscode/
+.idea/

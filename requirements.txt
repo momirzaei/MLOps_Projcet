@@ -1,0 +1,21 @@
+# --- Web API ---
+fastapi
+uvicorn[standard]
+pydantic
+
+# --- LLM & Agent ---
+langchain
+langchain-groq
+langchain-community
+langchain-core
+
+# --- Database & SQL Parsing ---
+SQLAlchemy
+sqlglot
+
+# --- MLOps & Tracking ---
+mlflow==2.13.0
+dvc
+
+# --- Data Processing (Medallion Pipeline) ---
+pandas
