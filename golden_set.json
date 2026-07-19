@@ -1,0 +1,1273 @@
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "domain": "revenue",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the total net revenue across all sales?",
+    "sql": "SELECT SUM(total_line_price) AS total_net_revenue FROM gold_fact_sales",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "total_net_revenue": 19445926.708
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 2,
+    "difficulty": "easy",
+    "domain": "revenue",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the total gross revenue (excluding cancellations)?",
+    "sql": "SELECT SUM(total_line_price) AS gross_revenue FROM gold_fact_sales WHERE is_cancelled = 0",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "gross_revenue": 20972594.568
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 3,
+    "difficulty": "easy",
+    "domain": "return",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the total refunded amount from cancelled invoices?",
+    "sql": "SELECT SUM(ABS(total_line_price)) AS total_refunded FROM gold_fact_sales WHERE is_cancelled = 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "total_refunded": 1527415.0
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 4,
+    "difficulty": "easy",
+    "domain": "revenue",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "How many unique invoices are in the dataset?",
+    "sql": "SELECT COUNT(DISTINCT invoice_no) AS distinct_invoices FROM gold_fact_sales",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "distinct_invoices": 48369
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 5,
+    "difficulty": "easy",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "How many distinct products are in the catalog?",
+    "sql": "SELECT COUNT(DISTINCT stock_code) AS distinct_products FROM gold_agg_product_metrics",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "distinct_products": 4932
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 6,
+    "difficulty": "easy",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "How many countries do we sell to?",
+    "sql": "SELECT COUNT(DISTINCT country) AS distinct_countries FROM gold_agg_country_metrics",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "distinct_countries": 43
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 7,
+    "difficulty": "easy",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "How many registered customers are in the RFM table?",
+    "sql": "SELECT COUNT(*) AS registered_customers FROM gold_agg_customer_rfm",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "registered_customers": 5952
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 8,
+    "difficulty": "easy",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "Which country has the highest net revenue?",
+    "sql": "SELECT country FROM gold_agg_country_metrics ORDER BY net_revenue DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "country": "United Kingdom"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 9,
+    "difficulty": "easy",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "What is the net revenue from the United Kingdom?",
+    "sql": "SELECT net_revenue FROM gold_agg_country_metrics WHERE country = 'United Kingdom'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "net_revenue": 16541260.037013112
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 10,
+    "difficulty": "easy",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "How many registered customers are from Germany?",
+    "sql": "SELECT total_registered_customers FROM gold_agg_country_metrics WHERE country = 'Germany'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "total_registered_customers": 107
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 11,
+    "difficulty": "easy",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "How many invoices came from France?",
+    "sql": "SELECT total_invoices FROM gold_agg_country_metrics WHERE country = 'France'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "total_invoices": 746
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 12,
+    "difficulty": "easy",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "Which product has the highest net revenue?",
+    "sql": "SELECT product_description FROM gold_agg_product_metrics ORDER BY net_revenue DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "product_description": "REGENCY CAKESTAND 3 TIER"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 13,
+    "difficulty": "easy",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "Which product has sold the most units?",
+    "sql": "SELECT product_description FROM gold_agg_product_metrics ORDER BY net_units_sold DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "product_description": "WORLD WAR 2 GLIDERS ASSTD DESIGNS"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 14,
+    "difficulty": "easy",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "What is the net revenue for stock code 22423?",
+    "sql": "SELECT net_revenue FROM gold_agg_product_metrics WHERE stock_code = '22423'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "net_revenue": 327813.65000000305
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 15,
+    "difficulty": "easy",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "How many net units of stock code 85123A have been sold in total?",
+    "sql": "SELECT SUM(net_units_sold) AS total_units FROM gold_agg_product_metrics WHERE stock_code = '85123A'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "total_units": 92509
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 16,
+    "difficulty": "easy",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "Which customer has the highest monetary value?",
+    "sql": "SELECT customer_id FROM gold_agg_customer_rfm ORDER BY monetary_value DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "customer_id": 18102.0
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 17,
+    "difficulty": "easy",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "What is the total monetary value for customer 18102?",
+    "sql": "SELECT monetary_value FROM gold_agg_customer_rfm WHERE customer_id = 18102",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "monetary_value": 598215.2199999996
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 18,
+    "difficulty": "easy",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "How many purchases has customer 14911 made?",
+    "sql": "SELECT frequency_of_purchase FROM gold_agg_customer_rfm WHERE customer_id = 14911",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "frequency_of_purchase": 510
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 19,
+    "difficulty": "easy",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "What is the last purchase date of customer 14646?",
+    "sql": "SELECT last_purchase_date FROM gold_agg_customer_rfm WHERE customer_id = 14646",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "last_purchase_date": "2011-12-08 12:12:00"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 20,
+    "difficulty": "easy",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What was the gross revenue in December 2010?",
+    "sql": "SELECT gross_monthly_revenue FROM gold_agg_monthly_trends WHERE invoice_year_month = '2010-12'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "gross_monthly_revenue": 1262598.7899999148
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 21,
+    "difficulty": "easy",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "How many transactions were there in November 2011?",
+    "sql": "SELECT monthly_transactions FROM gold_agg_monthly_trends WHERE invoice_year_month = '2011-11'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "monthly_transactions": 3210
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 22,
+    "difficulty": "easy",
+    "domain": "return",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What was the return rate in December 2011?",
+    "sql": "SELECT return_rate FROM gold_agg_monthly_trends WHERE invoice_year_month = '2011-12'",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "return_rate": 0.32110400846772913
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 23,
+    "difficulty": "easy",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "Which month had the highest net monthly revenue?",
+    "sql": "SELECT invoice_year_month FROM gold_agg_monthly_trends ORDER BY net_monthly_revenue DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "invoice_year_month": "2011-11"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 24,
+    "difficulty": "easy",
+    "domain": "time",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the earliest invoice date in the dataset?",
+    "sql": "SELECT MIN(invoice_date) AS earliest_date FROM gold_fact_sales",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "earliest_date": "2009-12-01 07:45:00"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 25,
+    "difficulty": "easy",
+    "domain": "time",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the latest invoice date in the dataset?",
+    "sql": "SELECT MAX(invoice_date) AS latest_date FROM gold_fact_sales",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "latest_date": "2011-12-09 12:50:00"
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 26,
+    "difficulty": "medium",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "List the top 5 countries by net revenue excluding the United Kingdom.",
+    "sql": "SELECT country, net_revenue FROM gold_agg_country_metrics WHERE country != 'United Kingdom' ORDER BY net_revenue DESC LIMIT 5",
+    "row_count": 5,
+    "result_preview": [
+      {
+        "country": "EIRE",
+        "net_revenue": 615519.5500000096
+      },
+      {
+        "country": "Netherlands",
+        "net_revenue": 548524.9500000032
+      },
+      {
+        "country": "Germany",
+        "net_revenue": 417988.561
+      },
+      {
+        "country": "France",
+        "net_revenue": 328191.7999999974
+      },
+      {
+        "country": "Australia",
+        "net_revenue": 167129.06999999975
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 27,
+    "difficulty": "medium",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "List the top 10 products by net revenue.",
+    "sql": "SELECT stock_code, product_description, net_revenue FROM gold_agg_product_metrics ORDER BY net_revenue DESC LIMIT 10",
+    "row_count": 10,
+    "result_preview": [
+      {
+        "stock_code": "22423",
+        "product_description": "REGENCY CAKESTAND 3 TIER",
+        "net_revenue": 327813.65000000305
+      },
+      {
+        "stock_code": "DOT",
+        "product_description": "DOTCOM POSTAGE",
+        "net_revenue": 322647.47000000015
+      },
+      {
+        "stock_code": "85123A",
+        "product_description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "net_revenue": 253541.51000000685
+      },
+      {
+        "stock_code": "47566",
+        "product_description": "PARTY BUNTING",
+        "net_revenue": 147948.49999999974
+      },
+      {
+        "stock_code": "85099B",
+        "product_description": "JUMBO BAG RED RETROSPOT",
+        "net_revenue": 146689.0000000005
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 28,
+    "difficulty": "medium",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What are the 3 months with the highest gross monthly revenue?",
+    "sql": "SELECT invoice_year_month, gross_monthly_revenue FROM gold_agg_monthly_trends ORDER BY gross_monthly_revenue DESC LIMIT 3",
+    "row_count": 3,
+    "result_preview": [
+      {
+        "invoice_year_month": "2011-11",
+        "gross_monthly_revenue": 1509496.329999743
+      },
+      {
+        "invoice_year_month": "2010-11",
+        "gross_monthly_revenue": 1470272.481999803
+      },
+      {
+        "invoice_year_month": "2010-12",
+        "gross_monthly_revenue": 1262598.7899999148
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 29,
+    "difficulty": "medium",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "Which countries have more than 100 registered customers?",
+    "sql": "SELECT country, total_registered_customers FROM gold_agg_country_metrics WHERE total_registered_customers > 100 ORDER BY total_registered_customers DESC",
+    "row_count": 2,
+    "result_preview": [
+      {
+        "country": "United Kingdom",
+        "total_registered_customers": 5407
+      },
+      {
+        "country": "Germany",
+        "total_registered_customers": 107
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 30,
+    "difficulty": "medium",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "Find products with more than 10000 net units sold.",
+    "sql": "SELECT stock_code, product_description, net_units_sold FROM gold_agg_product_metrics WHERE net_units_sold > 10000 ORDER BY net_units_sold DESC",
+    "row_count": 222,
+    "result_preview": [
+      {
+        "stock_code": "84077",
+        "product_description": "WORLD WAR 2 GLIDERS ASSTD DESIGNS",
+        "net_units_sold": 108434
+      },
+      {
+        "stock_code": "85123A",
+        "product_description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "net_units_sold": 92448
+      },
+      {
+        "stock_code": "84879",
+        "product_description": "ASSORTED COLOUR BIRD ORNAMENT",
+        "net_units_sold": 81298
+      },
+      {
+        "stock_code": "85099B",
+        "product_description": "JUMBO BAG RED RETROSPOT",
+        "net_units_sold": 77665
+      },
+      {
+        "stock_code": "17003",
+        "product_description": "BROCADE RING PURSE ",
+        "net_units_sold": 70690
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 31,
+    "difficulty": "medium",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What was the average net monthly revenue in 2011?",
+    "sql": "SELECT AVG(net_monthly_revenue) AS avg_net_monthly_revenue_2011 FROM gold_agg_monthly_trends WHERE invoice_year = 2011",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "avg_net_monthly_revenue_2011": 751744.4194999944
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 32,
+    "difficulty": "medium",
+    "domain": "return",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "Which month had the highest return rate?",
+    "sql": "SELECT invoice_year_month, return_rate FROM gold_agg_monthly_trends ORDER BY return_rate DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "invoice_year_month": "2011-12",
+        "return_rate": 0.32110400846772913
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 33,
+    "difficulty": "medium",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "List the top 10 customers by monetary value in the United Kingdom.",
+    "sql": "SELECT customer_id, monetary_value FROM gold_agg_customer_rfm WHERE country = 'United Kingdom' ORDER BY monetary_value DESC LIMIT 10",
+    "row_count": 10,
+    "result_preview": [
+      {
+        "customer_id": 18102.0,
+        "monetary_value": 598215.2199999996
+      },
+      {
+        "customer_id": 17450.0,
+        "monetary_value": 233579.39000000004
+      },
+      {
+        "customer_id": 13694.0,
+        "monetary_value": 190825.52000000008
+      },
+      {
+        "customer_id": 17511.0,
+        "monetary_value": 171885.9800000001
+      },
+      {
+        "customer_id": 16684.0,
+        "monetary_value": 141502.24999999994
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 34,
+    "difficulty": "medium",
+    "domain": "return",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the total refunded amount per country, sorted highest first?",
+    "sql": "SELECT country, SUM(ABS(total_line_price)) AS refunded FROM gold_fact_sales WHERE is_cancelled = 1 GROUP BY country ORDER BY refunded DESC",
+    "row_count": 36,
+    "result_preview": [
+      {
+        "country": "United Kingdom",
+        "refunded": 1330464.8800000001
+      },
+      {
+        "country": "EIRE",
+        "refunded": 48912.23
+      },
+      {
+        "country": "France",
+        "refunded": 28752.8
+      },
+      {
+        "country": "Norway",
+        "refunded": 20866.59
+      },
+      {
+        "country": "Spain",
+        "refunded": 17319.05
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 35,
+    "difficulty": "medium",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "Find customers with more than 100 purchases.",
+    "sql": "SELECT customer_id, country, frequency_of_purchase FROM gold_agg_customer_rfm WHERE frequency_of_purchase > 100 ORDER BY frequency_of_purchase DESC",
+    "row_count": 23,
+    "result_preview": [
+      {
+        "customer_id": 14911.0,
+        "country": "EIRE",
+        "frequency_of_purchase": 510
+      },
+      {
+        "customer_id": 12748.0,
+        "country": "United Kingdom",
+        "frequency_of_purchase": 364
+      },
+      {
+        "customer_id": 17841.0,
+        "country": "United Kingdom",
+        "frequency_of_purchase": 289
+      },
+      {
+        "customer_id": 15311.0,
+        "country": "United Kingdom",
+        "frequency_of_purchase": 270
+      },
+      {
+        "customer_id": 14606.0,
+        "country": "United Kingdom",
+        "frequency_of_purchase": 259
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 36,
+    "difficulty": "medium",
+    "domain": "product",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What is the average unit price of stock code 22423?",
+    "sql": "SELECT AVG(unit_price) AS avg_unit_price FROM gold_fact_sales WHERE stock_code = '22423' AND is_cancelled = 0",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "avg_unit_price": 14.17526717557252
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 37,
+    "difficulty": "medium",
+    "domain": "return",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "Find products with a cancellation-to-transaction ratio greater than 0.1.",
+    "sql": "SELECT stock_code, product_description, total_cancellations, distinct_transactions, CAST(total_cancellations AS FLOAT)/NULLIF(distinct_transactions,0) AS cancel_ratio FROM gold_agg_product_metrics WHERE distinct_transactions > 0 AND CAST(total_cancellations AS FLOAT)/distinct_transactions > 0.1 ORDER BY cancel_ratio DESC",
+    "row_count": 230,
+    "result_preview": [
+      {
+        "stock_code": "S",
+        "product_description": "SAMPLES",
+        "total_cancellations": 101,
+        "distinct_transactions": 37,
+        "cancel_ratio": 2.72972972972973
+      },
+      {
+        "stock_code": "D",
+        "product_description": "Discount",
+        "total_cancellations": 172,
+        "distinct_transactions": 151,
+        "cancel_ratio": 1.1390728476821192
+      },
+      {
+        "stock_code": "AMAZONFEE",
+        "product_description": "AMAZON FEE",
+        "total_cancellations": 39,
+        "distinct_transactions": 36,
+        "cancel_ratio": 1.0833333333333333
+      },
+      {
+        "stock_code": "22850",
+        "product_description": "BREAD BIN DINER STYLE BLACK",
+        "total_cancellations": 2,
+        "distinct_transactions": 2,
+        "cancel_ratio": 1.0
+      },
+      {
+        "stock_code": "35631B",
+        "product_description": "BLUE GREEN CHRISTMAS HANGING BALL ",
+        "total_cancellations": 1,
+        "distinct_transactions": 1,
+        "cancel_ratio": 1.0
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 38,
+    "difficulty": "medium",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "What is the average net revenue per registered customer for each country, for countries with at least 10 registered customers?",
+    "sql": "SELECT country, net_revenue * 1.0 / total_registered_customers AS revenue_per_customer FROM gold_agg_country_metrics WHERE total_registered_customers >= 10 ORDER BY revenue_per_customer DESC",
+    "row_count": 18,
+    "result_preview": [
+      {
+        "country": "Netherlands",
+        "revenue_per_customer": 23848.910869565356
+      },
+      {
+        "country": "Australia",
+        "revenue_per_customer": 11141.937999999984
+      },
+      {
+        "country": "Denmark",
+        "revenue_per_customer": 5478.424166666672
+      },
+      {
+        "country": "Sweden",
+        "revenue_per_customer": 4621.54842105263
+      },
+      {
+        "country": "Switzerland",
+        "revenue_per_customer": 4533.125454545439
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 39,
+    "difficulty": "medium",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "Compare total net revenue between 2010 and 2011.",
+    "sql": "SELECT invoice_year, SUM(net_monthly_revenue) AS yearly_net_revenue FROM gold_agg_monthly_trends WHERE invoice_year IN (2010, 2011) GROUP BY invoice_year ORDER BY invoice_year",
+    "row_count": 2,
+    "result_preview": [
+      {
+        "invoice_year": 2010,
+        "yearly_net_revenue": 9625146.563999528
+      },
+      {
+        "invoice_year": 2011,
+        "yearly_net_revenue": 9020933.033999933
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 40,
+    "difficulty": "medium",
+    "domain": "product",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "What are the top 5 products by revenue sold in EIRE?",
+    "sql": "SELECT stock_code, product_description, SUM(total_line_price) AS revenue FROM gold_fact_sales WHERE country = 'EIRE' AND is_cancelled = 0 GROUP BY stock_code, product_description ORDER BY revenue DESC LIMIT 5",
+    "row_count": 5,
+    "result_preview": [
+      {
+        "stock_code": "M",
+        "product_description": "Manual",
+        "revenue": 23859.78
+      },
+      {
+        "stock_code": "22423",
+        "product_description": "REGENCY CAKESTAND 3 TIER",
+        "revenue": 15927.449999999999
+      },
+      {
+        "stock_code": "C2",
+        "product_description": "CARRIAGE",
+        "revenue": 10005.0
+      },
+      {
+        "stock_code": "20914",
+        "product_description": "SET/5 RED SPOTTY LID GLASS BOWLS",
+        "revenue": 5670.299999999999
+      },
+      {
+        "stock_code": "85123A",
+        "product_description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "revenue": 5631.45
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 41,
+    "difficulty": "medium",
+    "domain": "customer",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "How many customers have purchased in more than 5 different months?",
+    "sql": "SELECT COUNT(*) AS customers_active_in_over_5_months FROM (SELECT customer_id, COUNT(DISTINCT invoice_year_month) AS active_months FROM gold_fact_sales WHERE customer_id IS NOT NULL AND is_cancelled = 0 GROUP BY customer_id HAVING COUNT(DISTINCT invoice_year_month) > 5)",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "customers_active_in_over_5_months": 1489
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 42,
+    "difficulty": "medium",
+    "domain": "country",
+    "target_tables": [
+      "gold_agg_country_metrics"
+    ],
+    "question": "Which country has the highest number of invoices?",
+    "sql": "SELECT country, total_invoices FROM gold_agg_country_metrics ORDER BY total_invoices DESC LIMIT 1",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "country": "United Kingdom",
+        "total_invoices": 43850
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 43,
+    "difficulty": "medium",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What was the total net revenue in the fourth quarter of 2011 (October, November, December)?",
+    "sql": "SELECT SUM(net_monthly_revenue) AS q4_2011_net_revenue FROM gold_agg_monthly_trends WHERE invoice_year = 2011 AND invoice_month IN (10, 11, 12)",
+    "row_count": 1,
+    "result_preview": [
+      {
+        "q4_2011_net_revenue": 2966146.9299997496
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 44,
+    "difficulty": "medium",
+    "domain": "product",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "Find stock codes whose average unit price exceeds 50.",
+    "sql": "SELECT stock_code, AVG(unit_price) AS avg_price FROM gold_fact_sales WHERE is_cancelled = 0 GROUP BY stock_code HAVING AVG(unit_price) > 50 ORDER BY avg_price DESC",
+    "row_count": 29,
+    "result_preview": [
+      {
+        "stock_code": "B",
+        "avg_price": 11062.06
+      },
+      {
+        "stock_code": "AMAZONFEE",
+        "avg_price": 8502.2825
+      },
+      {
+        "stock_code": "M",
+        "avg_price": 381.9832648401827
+      },
+      {
+        "stock_code": "ADJUST",
+        "avg_price": 247.16472222222222
+      },
+      {
+        "stock_code": "ADJUST2",
+        "avg_price": 243.68333333333337
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 45,
+    "difficulty": "medium",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "What was the total gross revenue during holiday months (November and December) across both 2010 and 2011?",
+    "sql": "SELECT invoice_year, SUM(gross_monthly_revenue) AS holiday_gross_revenue FROM gold_agg_monthly_trends WHERE invoice_month IN (11, 12) AND invoice_year IN (2010, 2011) GROUP BY invoice_year ORDER BY invoice_year",
+    "row_count": 2,
+    "result_preview": [
+      {
+        "invoice_year": 2010,
+        "holiday_gross_revenue": 2732871.2719997177
+      },
+      {
+        "invoice_year": 2011,
+        "holiday_gross_revenue": 2148307.009999756
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 46,
+    "difficulty": "hard",
+    "domain": "product",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "For each country, find the top-selling product by revenue.",
+    "sql": "WITH product_revenue AS ( SELECT country, stock_code, product_description, SUM(total_line_price) AS revenue, ROW_NUMBER() OVER (PARTITION BY country ORDER BY SUM(total_line_price) DESC) AS rn FROM gold_fact_sales WHERE is_cancelled = 0 GROUP BY country, stock_code, product_description ) SELECT country, stock_code, product_description, revenue FROM product_revenue WHERE rn = 1 ORDER BY revenue DESC",
+    "row_count": 43,
+    "result_preview": [
+      {
+        "country": "United Kingdom",
+        "stock_code": "DOT",
+        "product_description": "DOTCOM POSTAGE",
+        "revenue": 322657.48
+      },
+      {
+        "country": "Germany",
+        "stock_code": "POST",
+        "product_description": "POSTAGE",
+        "revenue": 39231.2
+      },
+      {
+        "country": "France",
+        "stock_code": "POST",
+        "product_description": "POSTAGE",
+        "revenue": 25030.0
+      },
+      {
+        "country": "EIRE",
+        "stock_code": "M",
+        "product_description": "Manual",
+        "revenue": 23859.78
+      },
+      {
+        "country": "Norway",
+        "stock_code": "M",
+        "product_description": "Manual",
+        "revenue": 14756.64
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 47,
+    "difficulty": "hard",
+    "domain": "customer",
+    "target_tables": [
+      "gold_agg_customer_rfm"
+    ],
+    "question": "Find customers whose monetary value exceeds the average monetary value of customers in their own country.",
+    "sql": "SELECT c.customer_id, c.country, c.monetary_value, avg_by_country.country_avg FROM gold_agg_customer_rfm c JOIN ( SELECT country, AVG(monetary_value) AS country_avg FROM gold_agg_customer_rfm GROUP BY country ) avg_by_country ON c.country = avg_by_country.country WHERE c.monetary_value > avg_by_country.country_avg ORDER BY c.monetary_value DESC LIMIT 20",
+    "row_count": 20,
+    "result_preview": [
+      {
+        "customer_id": 18102.0,
+        "country": "United Kingdom",
+        "monetary_value": 598215.2199999996,
+        "country_avg": 2553.434996670982
+      },
+      {
+        "customer_id": 14646.0,
+        "country": "Netherlands",
+        "monetary_value": 523342.0700000025,
+        "country_avg": 23848.910869565327
+      },
+      {
+        "customer_id": 14156.0,
+        "country": "EIRE",
+        "monetary_value": 296564.69,
+        "country_avg": 115700.32599999991
+      },
+      {
+        "customer_id": 14911.0,
+        "country": "EIRE",
+        "monetary_value": 270248.52999999956,
+        "country_avg": 115700.32599999991
+      },
+      {
+        "customer_id": 17450.0,
+        "country": "United Kingdom",
+        "monetary_value": 233579.39000000004,
+        "country_avg": 2553.434996670982
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 48,
+    "difficulty": "hard",
+    "domain": "time",
+    "target_tables": [
+      "gold_agg_monthly_trends"
+    ],
+    "question": "Calculate the month-over-month percentage change in net monthly revenue.",
+    "sql": "SELECT invoice_year_month, net_monthly_revenue, LAG(net_monthly_revenue) OVER (ORDER BY invoice_year_month) AS prev_month_revenue, (net_monthly_revenue - LAG(net_monthly_revenue) OVER (ORDER BY invoice_year_month)) * 100.0 / NULLIF(LAG(net_monthly_revenue) OVER (ORDER BY invoice_year_month), 0) AS mom_pct_change FROM gold_agg_monthly_trends ORDER BY invoice_year_month",
+    "row_count": 25,
+    "result_preview": [
+      {
+        "invoice_year_month": "2009-12",
+        "net_monthly_revenue": 799847.1100000143,
+        "prev_month_revenue": NaN,
+        "mom_pct_change": NaN
+      },
+      {
+        "invoice_year_month": "2010-01",
+        "net_monthly_revenue": 624032.8919999956,
+        "prev_month_revenue": 799847.1100000143,
+        "mom_pct_change": -21.980978089677112
+      },
+      {
+        "invoice_year_month": "2010-02",
+        "net_monthly_revenue": 533091.4260000042,
+        "prev_month_revenue": 624032.8919999956,
+        "mom_pct_change": -14.573184709627784
+      },
+      {
+        "invoice_year_month": "2010-03",
+        "net_monthly_revenue": 765848.7609999765,
+        "prev_month_revenue": 533091.4260000042,
+        "mom_pct_change": 43.661804269943474
+      },
+      {
+        "invoice_year_month": "2010-04",
+        "net_monthly_revenue": 644174.7919999823,
+        "prev_month_revenue": 765848.7609999765,
+        "mom_pct_change": -15.887466977308062
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 49,
+    "difficulty": "hard",
+    "domain": "product",
+    "target_tables": [
+      "gold_agg_product_metrics"
+    ],
+    "question": "Find products that together contribute to the top 20% of total net revenue (Pareto analysis).",
+    "sql": "WITH ranked AS ( SELECT stock_code, product_description, net_revenue, SUM(net_revenue) OVER (ORDER BY net_revenue DESC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS cum_revenue, SUM(net_revenue) OVER () AS total_revenue FROM gold_agg_product_metrics WHERE net_revenue > 0 ) SELECT stock_code, product_description, net_revenue, cum_revenue * 1.0 / total_revenue AS cumulative_share FROM ranked WHERE cum_revenue * 1.0 / total_revenue <= 0.20 ORDER BY net_revenue DESC",
+    "row_count": 54,
+    "result_preview": [
+      {
+        "stock_code": "22423",
+        "product_description": "REGENCY CAKESTAND 3 TIER",
+        "net_revenue": 327813.65000000305,
+        "cumulative_share": 0.016510455086838436
+      },
+      {
+        "stock_code": "DOT",
+        "product_description": "DOTCOM POSTAGE",
+        "net_revenue": 322647.47000000015,
+        "cumulative_share": 0.03276071361730843
+      },
+      {
+        "stock_code": "85123A",
+        "product_description": "WHITE HANGING HEART T-LIGHT HOLDER",
+        "net_revenue": 253541.51000000685,
+        "cumulative_share": 0.04553042504788575
+      },
+      {
+        "stock_code": "47566",
+        "product_description": "PARTY BUNTING",
+        "net_revenue": 147948.49999999974,
+        "cumulative_share": 0.05298190568151735
+      },
+      {
+        "stock_code": "85099B",
+        "product_description": "JUMBO BAG RED RETROSPOT",
+        "net_revenue": 146689.0000000005,
+        "cumulative_share": 0.060369951134271474
+      }
+    ],
+    "status": "OK",
+    "error": null
+  },
+  {
+    "id": 50,
+    "difficulty": "hard",
+    "domain": "customer",
+    "target_tables": [
+      "gold_fact_sales"
+    ],
+    "question": "For each country, find the customer with the longest gap in days between their first and last purchase.",
+    "sql": "WITH customer_span AS ( SELECT country, customer_id, MIN(invoice_date) AS first_purchase, MAX(invoice_date) AS last_purchase, CAST(julianday(MAX(invoice_date)) - julianday(MIN(invoice_date)) AS INTEGER) AS days_span FROM gold_fact_sales WHERE customer_id IS NOT NULL GROUP BY country, customer_id ), ranked AS ( SELECT country, customer_id, first_purchase, last_purchase, days_span, ROW_NUMBER() OVER (PARTITION BY country ORDER BY days_span DESC) AS rn FROM customer_span ) SELECT country, customer_id, first_purchase, last_purchase, days_span FROM ranked WHERE rn = 1 ORDER BY days_span DESC",
+    "row_count": 43,
+    "result_preview": [
+      {
+        "country": "United Kingdom",
+        "customer_id": 15311.0,
+        "first_purchase": "2009-12-01 11:21:00",
+        "last_purchase": "2011-12-09 12:00:00",
+        "days_span": 738
+      },
+      {
+        "country": "EIRE",
+        "customer_id": 14911.0,
+        "first_purchase": "2009-12-01 11:41:00",
+        "last_purchase": "2011-12-08 15:54:00",
+        "days_span": 737
+      },
+      {
+        "country": "France",
+        "customer_id": 12523.0,
+        "first_purchase": "2009-12-02 10:28:00",
+        "last_purchase": "2011-12-08 11:46:00",
+        "days_span": 736
+      },
+      {
+        "country": "Belgium",
+        "customer_id": 12362.0,
+        "first_purchase": "2009-12-01 10:10:00",
+        "last_purchase": "2011-12-06 15:40:00",
+        "days_span": 735
+      },
+      {
+        "country": "Germany",
+        "customer_id": 12471.0,
+        "first_purchase": "2009-12-02 14:43:00",
+        "last_purchase": "2011-12-07 15:43:00",
+        "days_span": 735
+      }
+    ],
+    "status": "OK",
+    "error": null
+  }
+]
