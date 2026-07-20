@@ -41,7 +41,13 @@ jobs:
           pip install dvc dvc-s3
 
       - name: Pull Data from DVC
-        run: dvc pull
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+        run: |
+          dvc remote modify origin --local auth basic
+          dvc remote modify origin --local user MahdiAGS
+          dvc remote modify origin --local password $DAGSHUB_TOKEN
+          dvc pull retail_gold.db.dvc
 
       - name: Run MLflow Evaluation Script
         env:

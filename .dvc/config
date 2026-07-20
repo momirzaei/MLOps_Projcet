@@ -1,4 +1,4 @@
 [core]
-    remote = my_local_remote
-['remote "my_local_remote"']
-    url = ../../dvc_storage
+    remote = origin
+['remote "origin"']
+    url = https://dagshub.com/MahdiAGS/MLOps_DVC_Storage.dvc
