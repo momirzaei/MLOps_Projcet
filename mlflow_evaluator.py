@@ -61,7 +61,7 @@ def evaluate_and_log():
     with open(GOLDEN_SET_PATH, 'r', encoding='utf-8') as f:
         golden_set = json.load(f)
 
-    BATCH_SIZE = 6
+    BATCH_SIZE = 5
     test_subset = golden_set[0:BATCH_SIZE] 
 
     tracking_uri = os.getenv("MLFLOW_TRACKING_URI", "sqlite:///mlflow_tracking.db")
