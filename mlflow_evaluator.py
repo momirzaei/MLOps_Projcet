@@ -1,17 +1,25 @@
 import json
 import time
+import os
 import re
 import subprocess
 import mlflow
-from sql_agent import initialize_groq_sql_agent, GroqTokenTracker
+from sql_agent import initialize_groq_sql_agent, GroqTokenTracker, CUSTOM_SYSTEM_PROMPT
+from dotenv import load_dotenv
 
-# ==========================================
-# Configuration & Pricing Models
-# ==========================================
+load_dotenv()
+
 GOLDEN_SET_PATH = "golden_set.json"
 DATABASE_URI = "sqlite:///retail_gold.db"
-GROQ_API_KEY = ""
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY is missing! Please check your .env file.")
+
 EXPERIMENT_NAME = "Medallion-Agent-Evaluation"
+
+MODEL_NAME = "llama-3.3-70b-versatile"
+TEMPERATURE = 0.0
 
 # Pricing per 1M tokens (Llama-3-8b approx rates)
 COST_PER_1M_INPUT = 0.05  
@@ -37,18 +45,15 @@ def verify_result(expected_preview, raw_observation, final_output):
     if not expected_preview or len(expected_preview) == 0:
         return False
         
-    # Get the first expected value from the Golden Set dictionary
     expected_val = list(expected_preview[0].values())[0]
     
     if isinstance(expected_val, (int, float)):
-        # Extract all numbers from the Agent's raw observation and final output
         extracted_numbers = extract_numeric_values(raw_observation) + extract_numeric_values(final_output)
         for num in extracted_numbers:
-            if abs(num - expected_val) <= 0.01:  # Tolerance for float rounding
+            if abs(num - expected_val) <= 0.01:  
                 return True
         return False
     else:
-        # For text results (e.g., Country names or Product names)
         expected_str = str(expected_val).lower()
         return expected_str in str(raw_observation).lower() or expected_str in str(final_output).lower()
 
@@ -56,8 +61,8 @@ def evaluate_and_log():
     with open(GOLDEN_SET_PATH, 'r', encoding='utf-8') as f:
         golden_set = json.load(f)
 
-    BATCH_SIZE = 28
-    test_subset = golden_set[27:BATCH_SIZE] 
+    BATCH_SIZE = 8
+    test_subset = golden_set[0:BATCH_SIZE] 
 
     mlflow.set_tracking_uri("sqlite:///mlflow_tracking.db")
     mlflow.set_experiment(EXPERIMENT_NAME)
@@ -79,6 +84,10 @@ def evaluate_and_log():
         }
         
         all_generated_sqls = []
+
+        with open("system_prompt_snapshot.txt", "w", encoding="utf-8") as f:
+            f.write(CUSTOM_SYSTEM_PROMPT)
+        mlflow.log_artifact("system_prompt_snapshot.txt")
 
         for idx, item in enumerate(test_subset):
             q_id = item["id"]
@@ -123,7 +132,6 @@ def evaluate_and_log():
                 metrics["total_retries_and_blocks"] += step_retries
                 all_generated_sqls.append(f"Final Output: {final_output}")
                 
-                # Deterministic Validation
                 is_correct = verify_result(expected_preview, raw_db_observation, final_output)
                 
                 if is_correct:
@@ -134,6 +142,7 @@ def evaluate_and_log():
 
             except Exception as e:
                 print(f"CRITICAL FAIL | {str(e)}")
+                all_generated_sqls.append(f"CRITICAL FAIL | {str(e)}")
 
         # Calculate Final Aggregated Metrics
         total_q = len(test_subset)
@@ -145,10 +154,12 @@ def evaluate_and_log():
         est_cost = ((tracker.prompt_tokens / 1_000_000) * COST_PER_1M_INPUT) + \
                    ((tracker.completion_tokens / 1_000_000) * COST_PER_1M_OUTPUT)
 
-        # MLflow Logging
-        mlflow.log_param("model_name", "llama3-70b-versatile")
+        mlflow.log_param("model_name", MODEL_NAME)
+        mlflow.log_param("temperature", TEMPERATURE)
         mlflow.log_param("data_version_hash", data_version)
         mlflow.log_param("batch_size", total_q)
+        mlflow.log_param("golden_set_file", GOLDEN_SET_PATH)
+        mlflow.log_param("database_uri", DATABASE_URI)
         
         mlflow.log_metric("execution_accuracy", exec_acc)
         mlflow.log_metric("result_accuracy", res_acc)

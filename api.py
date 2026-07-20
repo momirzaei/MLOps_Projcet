@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
 from sql_agent import initialize_groq_sql_agent
+from dotenv import load_dotenv
 
 class QueryRequest(BaseModel):
     question: str
@@ -19,7 +20,13 @@ app = FastAPI(
 sql_agent = None
 
 DATABASE_URI = "sqlite:///retail_gold.db"
-#GROQ_API_KEY = " "
+
+load_dotenv()
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    raise ValueError("GROQ_API_KEY is missing! Please check your .env file.")
 
 @app.on_event("startup")
 async def startup_event():

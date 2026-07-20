@@ -6,6 +6,7 @@ from langchain_groq import ChatGroq
 from langchain_community.agent_toolkits import create_sql_agent
 from langchain_community.agent_toolkits.sql.toolkit import SQLDatabaseToolkit
 from langchain_core.callbacks import BaseCallbackHandler
+from dotenv import load_dotenv
 
 class GroqTokenTracker(BaseCallbackHandler):
     def __init__(self):
@@ -359,7 +360,13 @@ def initialize_groq_sql_agent(db_uri: str, api_key: str,tracker=None):
 
 if __name__ == "__main__":
     DATABASE_URI = "sqlite:///retail_gold.db"
-    GROQ_API_KEY = ""
+
+    load_dotenv()
+
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+    if not GROQ_API_KEY:
+        raise ValueError("GROQ_API_KEY is missing! Please check your .env file.")
     
     try:
         agent = initialize_groq_sql_agent(DATABASE_URI, GROQ_API_KEY)
