@@ -48,7 +48,8 @@ MLOps_Project
 ├── .gitignore
 ├── Dockerfile
 ├── golden_set.json            # Benchmark dataset
-├── main.py                    # Streamlit application
+├── ui.py                      # Streamlit application
+├── api.py                     # FASTAPI
 ├── mlflow_evaluator.py        # MLflow evaluation script
 ├── requirements.txt
 ├── retail_gold.db.dvc         # DVC pointer
@@ -116,7 +117,7 @@ docker run -p 8000:8000 --env-file .env medallion-sql-agent
 ## 5. Run Streamlit
 
 ```bash
-streamlit run main.py
+streamlit run ui.py
 ```
 
 ---
