@@ -19,3 +19,6 @@ dvc
 
 # --- Data Processing (Medallion Pipeline) ---
 pandas
+
+# --- Basic ---
+python-dotenv
